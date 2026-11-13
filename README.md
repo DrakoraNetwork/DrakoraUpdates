@@ -2,9 +2,15 @@
 
 Public network configuration and release metadata for the Drakora player mod on Minecraft 1.20.1. Player mod source remains private. Internal staff mods and private signing keys are not distributed here.
 
-Clients supporting signed configuration fetch [network.signed.json](https://raw.githubusercontent.com/EnVisione/DrakoraUpdates/main/network.signed.json) at startup, before opening a new connection, and periodically while running. A connector waits at most 4.5 seconds for a refresh. Network requests run outside the render and packet threads. Unavailable or invalid responses preserve the last verified configuration, with a bundled configuration available for the first offline launch.
+Clients supporting signed configuration fetch [network.signed.json](https://raw.githubusercontent.com/DrakoraNetwork/DrakoraUpdates/main/network.signed.json) at startup, before opening a new connection, and periodically while running. A connector waits at most 4.5 seconds for a refresh. Network requests run outside the render and packet threads. Unavailable or invalid responses preserve the last verified configuration, with a bundled configuration available for the first offline launch.
 
 The released modpack builds that contain only a fixed endpoint list need one initial client update to gain this capability. Changing this repository cannot patch an older JAR that does not fetch configuration.
+
+## Current proxy endpoints
+
+The NA proxy uses `185.213.243.143:25572`, and the EU proxy uses `144.76.99.105:25829`. Players should connect through `play.drakora.org` or the regional Drakora hostnames. The retired node-1, UltraServers, and PebbleHost proxy addresses are no longer advertised.
+
+The previous public configuration URL remains a signed bootstrap recovery source for installed clients.
 
 ## Files and settings
 
