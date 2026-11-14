@@ -61,6 +61,16 @@ class ConfigurationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             CONFIG.validate(value)
 
+    def test_russian_tunnel_requires_approved_distinct_endpoints(self):
+        original = json.loads((ROOT / "network.json").read_text())
+        CONFIG.validate(original)
+        for field, value in [("relayHost", "203.0.113.99"), ("relayPort", 1),
+                             ("countrySource", "https://example.com/trace"), ("entryHosts", ["other.example"])]:
+            candidate = json.loads(json.dumps(original))
+            candidate["russianTunnel"][field] = value
+            with self.assertRaises(ValueError):
+                CONFIG.validate(candidate)
+
 
 if __name__ == "__main__":
     unittest.main()
