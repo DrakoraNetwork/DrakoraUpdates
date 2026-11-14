@@ -53,3 +53,9 @@ Editing the plain JSON alone does not activate a change. Never upload the privat
 Update notices appear only on the verified Drakora network. The player chooses whether to install. Downloads have a fixed deadline and byte limit. A failed check retries; a missing player or screen does not consume the notice. Installation replaces the actual loader reported mod path and keeps a backup with a `.bak` suffix, so a second mod copy is not loaded.
 
 The running JAR stays untouched on every operating system. A separate installer waits for Minecraft to exit, verifies that the original and downloaded files are unchanged, and performs the atomic replacement. This also handles the loaded archive lock on Windows. Close Minecraft before reopening it. A launcher changed file, invalid download, lost authorization before preparation, or unsupported atomic replacement preserves the original. A failed deferred attempt leaves its prepared files and `.drakora-update-result.properties` beside the mod for diagnosis and manual recovery.
+
+## Russian connection route
+
+PVelocity 0.2.8 can use the optional signed `russianTunnel` settings. Auto mode checks the connection country through Drakora's HTTPS trace endpoint and selects the alternate entry only for `RU`. The direct EU endpoint remains unchanged. Players can use `/pvelocity route auto`, `/pvelocity route direct`, or `/pvelocity route tunnel` while connected to Drakora. A reconnect applies a changed preference. Country detection reflects the public connection address and can differ when a VPN is in use.
+
+The relay is a fixed Minecraft destination, not a general VPN or open proxy. Relay transport to EU requires mutual TLS. The EU ingress accepts forwarded source addresses only after that authentication. Country lookup failure keeps the direct connection; the manual preference remains available. No country or player IP is stored in the preference file.

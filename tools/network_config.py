@@ -97,6 +97,21 @@ def validate(root):
         for port in ports:
             integer(port, 1, 65535)
         require(len(set(ports)) == len(ports), "Duplicate endpoint port")
+    tunnel = root.get("russianTunnel")
+    if tunnel is not None:
+        require(isinstance(tunnel, dict), "Invalid Russian tunnel configuration")
+        source = https(tunnel.get("countrySource"))
+        require(source.hostname == "drakora.org" and source.path == "/cdn-cgi/trace", "Unexpected country lookup service")
+        endpoints = {str(ipaddress.ip_address(value["host"])): set(value["ports"]) for value in root["addresses"]}
+        direct = str(ipaddress.ip_address(tunnel.get("directHost")))
+        relay = str(ipaddress.ip_address(tunnel.get("relayHost")))
+        direct_port = integer(tunnel.get("directPort"), 1, 65535)
+        relay_port = integer(tunnel.get("relayPort"), 1, 65535)
+        require(direct_port in endpoints.get(direct, set()) and relay_port in endpoints.get(relay, set())
+                and (direct, direct_port) != (relay, relay_port), "Tunnel endpoints must be distinct approved addresses")
+        hosts = [domain(value) for value in sequence(tunnel, "entryHosts", 8)]
+        require(len(hosts) == len(set(hosts)) and all(any(host == base or host.endswith("." + base)
+                for base in domains) for host in hosts), "Invalid tunnel entry host")
     for value in sequence(root, "configurationSources", 4):
         https(value)
     downloads = [https(value) for value in sequence(root, "downloadRoots", 8)]

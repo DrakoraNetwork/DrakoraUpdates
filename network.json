@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 2026111301,
+  "revision": 2026111402,
   "domains": [
     "drakora.org",
     "drakora-network.net"
@@ -35,6 +35,12 @@
       "ports": [
         25575
       ]
+    },
+    {
+      "host": "194.54.88.34",
+      "ports": [
+        25567
+      ]
     }
   ],
   "configurationSources": [
@@ -49,5 +55,16 @@
   "downloadRedirectHosts": [
     "release-assets.githubusercontent.com",
     "objects.githubusercontent.com"
-  ]
+  ],
+  "russianTunnel": {
+    "countrySource": "https://drakora.org/cdn-cgi/trace",
+    "entryHosts": [
+      "play.drakora.org",
+      "eu.drakora.org"
+    ],
+    "directHost": "144.76.99.105",
+    "directPort": 25829,
+    "relayHost": "194.54.88.34",
+    "relayPort": 25567
+  }
 }
