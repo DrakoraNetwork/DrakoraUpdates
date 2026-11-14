@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "revision": 2026111301,
+  "revision": 2026111401,
   "domains": [
     "drakora.org",
     "drakora-network.net"
@@ -13,9 +13,9 @@
       ]
     },
     {
-      "host": "144.76.99.105",
+      "host": "151.240.121.18",
       "ports": [
-        25829
+        26377
       ]
     },
     {
